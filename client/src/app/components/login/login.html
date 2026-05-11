@@ -1,0 +1,34 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Connexion</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          id="email" 
+          type="email" 
+          formControlName="email" 
+          placeholder="votre@email.com"
+          [class.error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input 
+          id="password" 
+          type="password" 
+          formControlName="password" 
+          placeholder="••••••••"
+          [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid">
+        Se connecter
+      </button>
+
+      
+      <p class="go-subscribe" routerLink="/go-subscribe"> Créer un compte ?</p>
+    </form>
+  </div>
+</div>
