@@ -2,6 +2,9 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { User } from '../../model/users';
+import { UserService } from '../../services/userService';
+import { RequestLogin } from '../../model/requestLogin';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +16,7 @@ import { RouterLink } from '@angular/router';
 export class Login implements OnInit {
   private fb = inject(FormBuilder); // Utilisation de inject() pour éviter le undefined
   loginForm!: FormGroup;
+  userService:UserService = inject(UserService)
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -24,6 +28,12 @@ export class Login implements OnInit {
   onSubmit(): void {
     if (this.loginForm.valid) {
       console.log('Login attempt:', this.loginForm.value);
+      const user = new RequestLogin(
+        this.loginForm.value.email,
+        this.loginForm.value.password
+      )
+      
+      const token = this.userService.login(user);
     }
   }
 }
