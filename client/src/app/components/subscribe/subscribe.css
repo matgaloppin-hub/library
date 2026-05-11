@@ -149,3 +149,19 @@ button.toggle-password:hover:not(:disabled) {
 button.toggle-password:active:not(:disabled) {
     transform: translateY(-50%) scale(0.90); /* Petit effet de clic propre */
 }
+
+.go-login {
+  text-align: center;
+  margin-top: 20px;
+  color: #2E6F40;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.go-login:hover {
+  color: #D5C58A;
+  text-decoration: underline;
+}

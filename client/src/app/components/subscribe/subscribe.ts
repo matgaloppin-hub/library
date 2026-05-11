@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-subscribe',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './subscribe.html',
   styleUrl: './subscribe.css',
 })
@@ -18,7 +19,7 @@ export class Subscribe {
     nom: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [
-      Validators.required, 
+      Validators.required,
       Validators.minLength(8),
       Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
     ]]
@@ -31,7 +32,7 @@ export class Subscribe {
   onSubmit() {
     if (this.subscribeForm.valid) {
       const formValues = this.subscribeForm.value;
-      
+
       // Création de l'objet utilisateur direct
       const newUser = {
         id: Date.now().toString(),
