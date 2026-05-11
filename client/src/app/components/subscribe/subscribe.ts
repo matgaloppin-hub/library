@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { UserService } from '../../services/userService';
+import { User } from '../../model/users';
 
 @Component({
   selector: 'app-subscribe',
@@ -11,7 +13,7 @@ import { RouterLink } from '@angular/router';
 })
 export class Subscribe {
   private fb = inject(FormBuilder);
-
+  private userService: UserService = inject(UserService);
   showPassword = false;
 
   subscribeForm: FormGroup = this.fb.group({
@@ -34,13 +36,14 @@ export class Subscribe {
       const formValues = this.subscribeForm.value;
       
       // Création de l'objet utilisateur direct
-      const newUser = {
-        id: Date.now().toString(),
-        prenom: formValues.prenom,
-        nom: formValues.nom,
-        email: formValues.email,
-        password: formValues.password
-      };
+      const newUser = new User(
+        formValues.prenom,
+        formValues.nom,
+        formValues.email,
+        formValues.password
+      );
+
+      this.userService.createUser(newUser)
 
       console.log('Utilisateur valide !', newUser);
       alert('Inscription réussie !' + JSON.stringify(newUser));
