@@ -1,0 +1,69 @@
+<div class="subscribe-container">
+    <div class="subscribe-card">
+        <h2>Créer un compte</h2>
+
+        <form [formGroup]="subscribeForm" (ngSubmit)="onSubmit()">
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">Prénom</label>
+                    <input type="text" id="firstName" formControlName="prenom" placeholder="Jean">
+                    @if (subscribeForm.get('prenom')?.invalid && subscribeForm.get('prenom')?.touched) {
+                        <span class="error-message">Le prénom est requis.</span>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Nom</label>
+                    <input type="text" id="lastName" formControlName="nom" placeholder="Dupont">
+                    @if (subscribeForm.get('nom')?.invalid && subscribeForm.get('nom')?.touched) {
+                        <span class="error-message">Le nom est requis.</span>
+                    }
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Adresse email</label>
+                <input type="email" id="email" formControlName="email" placeholder="jean.dupont@email.com">
+                @if (subscribeForm.get('email')?.invalid && subscribeForm.get('email')?.touched) {
+                    <span class="error-message">Veuillez entrer un email valide.</span>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <div class="password-wrapper">
+                    <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password" placeholder="Ex: M0tDeP@sse!">
+                    
+                    <button type="button" class="toggle-password" (click)="togglePassword()">
+                        @if (showPassword) {
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                <line x1="1" y1="1" x2="23" y2="23"></line>
+                            </svg>
+                        } @else {
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        }
+                    </button>
+                </div>
+                
+                @if (subscribeForm.get('password')?.invalid && subscribeForm.get('password')?.touched) {
+                    @if (subscribeForm.get('password')?.hasError('required')) {
+                        <span class="error-message">Le mot de passe est requis.</span>
+                    }
+                    @if (subscribeForm.get('password')?.hasError('minlength') || subscribeForm.get('password')?.hasError('pattern')) {
+                        <span class="error-message">
+                            Au moins 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial (@$!%*?&).
+                        </span>
+                    }
+                }
+            </div>
+
+            <button type="submit" [disabled]="subscribeForm.invalid">S'inscrire</button>
+        </form>
+
+    </div>
+</div>
