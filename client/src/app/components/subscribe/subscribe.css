@@ -1,0 +1,167 @@
+.subscribe-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px);
+    /* Ajustez selon la taille de votre header/footer */
+    padding: 20px;
+    background-color: #faf9f6;
+    /* Fond très léger pour faire ressortir la carte */
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.subscribe-card {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(46, 111, 64, 0.1);
+    /* Ombre légèrement teintée de votre vert */
+    width: 100%;
+    max-width: 450px;
+    border-top: 8px solid #2E6F40;
+    /* Ligne verte d'accentuation en haut */
+}
+
+h2 {
+    color: #2E6F40;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #fbfbfb;
+}
+
+input:focus {
+    outline: none;
+    border-color: #2E6F40;
+    background-color: #fff;
+    /* Halo d'accentuation avec la couleur beige #D5C58A */
+    box-shadow: 0 0 0 3px rgba(213, 197, 138, 0.4);
+}
+
+.error-message {
+    color: #d93025;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #2E6F40;
+    /* Vert principal */
+    color: #D5C58A;
+    /* Texte beige/or */
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    margin-top: 10px;
+}
+
+button:hover:not(:disabled) {
+    background-color: #1f4d2c;
+    /* Vert plus foncé au survol */
+}
+
+button:active:not(:disabled) {
+    transform: translateY(2px);
+    /* Effet de clic */
+}
+
+button:disabled {
+    background-color: #a3c2ac;
+    /* Vert désaturé si le formulaire est invalide */
+    color: #f0f0f0;
+    cursor: not-allowed;
+}
+
+/* ---- AJOUTS POUR LE BOUTON D'AFFICHAGE DU MOT DE PASSE ---- */
+
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 45px; /* Laisse de la place pour l'œil sans que le texte ne passe dessous */
+    box-sizing: border-box;
+}
+
+/* On force (override) les styles pour éviter que le petit bouton oeil soit vert géant */
+button.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    background: transparent;
+    border: none;
+    padding: 5px;
+    margin: 0;
+    color: #666; /* Gris neutre */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+button.toggle-password:hover:not(:disabled) {
+    background: transparent;
+    color: #2E6F40; /* Devient de votre couleur verte au survol */
+}
+
+button.toggle-password:active:not(:disabled) {
+    transform: translateY(-50%) scale(0.90); /* Petit effet de clic propre */
+}
+
+.go-login {
+    text-align: center;
+    margin-top: 20px;
+    color: #2E6F40;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.go-login:hover {
+    color: #D5C58A;
+    text-decoration: underline;
+}

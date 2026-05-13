@@ -1,0 +1,12 @@
+@if (visible()) {
+  <div class="notif-wrapper">
+    <div [class]="'notif ' + (success() ? 'notif-success' : 'notif-error')">
+      <span class="notif-icon">{{ success() ? '✓' : '✕' }}</span>
+      <div class="notif-body">
+        <p class="notif-title">{{ success() ? 'Succès' : 'Échec' }}</p>
+        <p class="notif-message">{{ message() }}</p>
+      </div>
+      <button class="notif-close" (click)="close()">✕</button>
+    </div>
+  </div>
+}
