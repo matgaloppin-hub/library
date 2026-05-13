@@ -1,0 +1,66 @@
+.notif-wrapper {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  width: 380px;
+}
+
+.notif {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 24px;
+  border-radius: 12px;
+  border: 1.5px solid;
+  animation: slideIn 0.2s ease;
+}
+
+.notif-success {
+  background: #f0fdf4;
+  border-color: #86efac;
+  color: #15803d;
+}
+
+.notif-error {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+.notif-icon {
+  font-size: 24px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.notif-body { flex: 1; }
+
+.notif-title {
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0 0 6px;
+}
+
+.notif-message {
+  font-size: 15px;
+  margin: 0;
+  opacity: 0.85;
+}
+
+.notif-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  opacity: 0.6;
+  color: inherit;
+  padding: 0;
+}
+
+.notif-close:hover { opacity: 1; }
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

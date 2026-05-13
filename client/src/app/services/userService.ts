@@ -6,7 +6,7 @@ import { User } from '../model/users';
 import { RequestLogin } from '../model/requestLogin';
 
 @Injectable({
-  providedIn: 'root' // Rend le service disponible dans toute l'application (Singleton)
+  providedIn: 'root'
 })
 export class UserService {
 

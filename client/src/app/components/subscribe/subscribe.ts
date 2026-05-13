@@ -1,19 +1,23 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../services/userService';
 import { User } from '../../model/users';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-subscribe',
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './subscribe.html',
-  styleUrl: './subscribe.css',
+  styleUrl: './subscribe.css'
 })
 export class Subscribe {
   private fb = inject(FormBuilder);
-  private userService: UserService = inject(UserService);
+  private router = inject(Router);
+  private userService = inject(UserService);
+  protected notifService = inject(NotificationService);
+
   showPassword = false;
 
   subscribeForm: FormGroup = this.fb.group({
@@ -21,35 +25,36 @@ export class Subscribe {
     nom: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [
-      Validators.required, 
+      Validators.required,
       Validators.minLength(8),
       Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
     ]]
   });
 
-  togglePassword() {
+  togglePassword(): void {
     this.showPassword = !this.showPassword;
   }
 
-  onSubmit() {
-    if (this.subscribeForm.valid) {
-      const formValues = this.subscribeForm.value;
-      
-      // Création de l'objet utilisateur direct
-      const newUser = new User(
-        formValues.prenom,
-        formValues.nom,
-        formValues.email,
-        formValues.password
-      );
-
-      this.userService.createUser(newUser)
-
-      console.log('Utilisateur valide !', newUser);
-      alert('Inscription réussie !' + JSON.stringify(newUser));
-      this.subscribeForm.reset();
-    } else {
+  onSubmit(): void {
+    if (!this.subscribeForm.valid) {
       this.subscribeForm.markAllAsTouched();
+      return;
     }
+
+    const { prenom, nom, email, password } = this.subscribeForm.value;
+    const newUser = new User(prenom, nom, email, password);
+
+    this.userService.createUser(newUser).subscribe({
+      next: () => {
+        this.notifService.show(true, 'Inscription réussie !');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        const message = err.status === 409
+          ? 'Cet email est déjà utilisé.'
+          : 'Erreur serveur. Veuillez réessayer.';
+        this.notifService.show(false, message);
+      }
+    });
   }
 }

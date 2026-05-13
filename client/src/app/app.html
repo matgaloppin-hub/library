@@ -1,1 +1,7 @@
-<router-outlet />
+@if (notifService.notif()) {
+  <app-notification
+    [success]="notifService.notif()!.success"
+    [message]="notifService.notif()!.message"
+    (closed)="notifService.dismiss()" />
+}
+<router-outlet/>
