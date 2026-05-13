@@ -25,7 +25,13 @@ export class UserService {
     return this.http.post<User>(this.baseUrl + '/register', user);
   }
 
-  login(userlogin: RequestLogin): Observable<string>{
-    return this.http.post<string>(this.baseUrl + '/login', userlogin);
+/** 
+   * Connexion et récupération automatique du cookie 
+   */
+  login(userlogin: RequestLogin): Observable<string> {
+    return this.http.post(`${this.baseUrl}/login`, userlogin, {
+      withCredentials: true,
+      responseType: 'text'
+    });
   }
 }

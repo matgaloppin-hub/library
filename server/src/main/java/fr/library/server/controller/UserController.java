@@ -1,4 +1,5 @@
 package fr.library.server.controller;
+
 import fr.library.server.dto.LoginRequest;
 import fr.library.server.model.User;
 import fr.library.server.services.UserService;

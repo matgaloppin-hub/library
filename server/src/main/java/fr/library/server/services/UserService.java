@@ -14,13 +14,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JWTUtils jwtUtils; // 1. AJOUTE CETTE LIGNE (en minuscule pour l'instance)
+    private final JWTUtils jwtUtils;
 
     public User createUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new RuntimeException("This email is already in use!");
         }
-        user.setDateInscription(LocalDate.now());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
