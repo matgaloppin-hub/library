@@ -1,0 +1,46 @@
+<div class="book-container">
+    <div class="book-card">
+        <div class="book-header">
+            <h2>Détails du Livre</h2>
+            <span class="status-badge" [class.available]="displayBook().disponible">
+                {{ displayBook().disponible ? 'Disponible' : 'Réservé' }}
+            </span>
+        </div>
+
+        <div class="book-content">
+            <div class="info-main">
+                <label>Titre</label>
+                <h1 class="book-title">{{ displayBook().titre }}</h1>
+                <label>Auteur(s)</label>
+                <p class="book-author">{{ displayBook().auteurs }}</p>
+            </div>
+
+            <hr class="separator">
+
+            <div class="info-grid">
+                <div class="info-item"><label>Genre</label><p>{{ displayBook().genre }}</p></div>
+                <div class="info-item"><label>Année</label><p>{{ displayBook().anneeParution }}</p></div>
+                <div class="info-item"><label>Édition</label><p>{{ displayBook().edition }}</p></div>
+            </div>
+
+            <div class="location-box">
+                <label>Localisation</label>
+                <p>{{ displayBook().emplacement }}</p>
+            </div>
+        </div>
+
+        <div class="book-actions">
+            <button (click)="openReservation()" [disabled]="!displayBook().disponible">
+                Réserver l'ouvrage
+            </button>
+        </div>
+    </div>
+</div>
+
+@if (showReservationForm()) {
+    <app-reservation 
+        [book]="displayBook()"
+        (reservationComplete)="handleReservation($event)"
+        (cancel)="closeReservation()">
+    </app-reservation>
+}

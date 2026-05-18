@@ -1,0 +1,118 @@
+.book-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px);
+    padding: 20px;
+    background-color: #faf9f6; /* Fond beige très clair */
+    font-family: "Inter", sans-serif;
+}
+
+.book-card {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(46, 111, 64, 0.1);
+    width: 100%;
+    max-width: 500px;
+    border-top: 8px solid #2E6F40; /* Accentuation verte */
+}
+
+.book-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+h2 { color: #2E6F40; margin: 0; font-size: 1.6rem; }
+
+.status-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    background-color: #fca5a5;
+    color: #b91c1c;
+}
+
+.status-badge.available {
+    background-color: #86efac;
+    color: #15803d;
+}
+
+.info-main { margin-bottom: 25px; }
+
+.book-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #2E6F40;
+    margin: 5px 0;
+}
+
+.book-author {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 0;
+}
+
+.separator {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+label {
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.info-item p {
+    font-size: 1rem;
+    color: #333;
+    margin: 0;
+    font-weight: 500;
+}
+
+.location-box {
+    background-color: #f0fdf4;
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 4px solid #2E6F40;
+}
+
+.location-box p {
+    font-size: 1.1rem;
+    margin: 0;
+    color: #2E6F40;
+    font-weight: 600;
+}
+
+button {
+    width: 100%;
+    padding: 16px;
+    background-color: #2E6F40; /* Vert principal */
+    color: #D5C58A; /* Texte or */
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+button:hover:not(:disabled) { background-color: #1f4d2c; }
+button:disabled { background-color: #a3c2ac; cursor: not-allowed; }
