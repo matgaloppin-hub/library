@@ -1,5 +1,8 @@
 package fr.library.server.services;
 
+import java.util.List;
+
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder; // Vérifie bien que le nom de classe est exactement JWTUtils
 import org.springframework.stereotype.Service;
 
@@ -47,5 +50,25 @@ public class UserService {
 
         String token = jwtUtils.generateToken(user);
         return new LoginResponse(token, user.getRole().name());
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User getUserById(Long id, String emailConnecte) {
+        User user = userRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+
+        if (!user.getEmail().equals(emailConnecte))
+            throw new AccessDeniedException("Accès interdit");
+
+        return user;
+    }
+
+    public void deleteUser(Long id) {
+        if (!userRepository.existsById(id))
+            throw new RuntimeException("Utilisateur introuvable");
+        userRepository.deleteById(id);
     }
 }
