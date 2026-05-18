@@ -1,0 +1,189 @@
+/* Layout global prenant strictement tout l'écran sans scroll possible */
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Fixe la hauteur exacte de la fenêtre */
+  width: 100vw;  /* Fixe la largeur exacte de la fenêtre */
+  background-color: #faf9f6; /* Ton fond beige clair signature */
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+  overflow: hidden; /* Empêche STRICTEMENT tout défilement global (haut/bas, gauche/droite) */
+  position: fixed;  /* Force le layout à rester ancré à l'écran */
+  top: 0;
+  left: 0;
+}
+
+/* Appliquer le border-box à tout le monde pour éviter que les paddings/borders n'agrandissent les éléments */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* --- BARRE DE RECHERCHE EN HAUT --- */
+.top-bar {
+  background-color: #ffffff;
+  padding: 15px 40px;
+  box-shadow: 0 4px 15px rgba(46, 111, 64, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  border-bottom: 3px solid #2E6F40; /* Rappel de ton vert signature */
+  width: 100%;
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 12px 12px 45px;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #fbfbfb;
+  color: #333;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #2E6F40;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(213, 197, 138, 0.4);
+}
+
+.search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  pointer-events: none;
+}
+
+/* Liste de suggestions */
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 10px;
+  right: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 5px;
+  padding: 0;
+  list-style: none;
+  max-height: 220px;
+  overflow-y: auto; /* Seule cette liste a le droit de scroller si trop de résultats */
+  z-index: 99;
+  box-shadow: 0 10px 20px rgba(46, 111, 64, 0.1);
+}
+
+.suggestions-list li {
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #333;
+  transition: background-color 0.2s ease;
+}
+
+.suggestions-list li:hover {
+  background-color: #faf9f6;
+  color: #2E6F40;
+  font-weight: 600;
+}
+
+/* --- ZONE CENTRALE DYNAMIQUE --- */
+.content-area {
+  flex: 1; /* Prend dynamiquement tout l'espace restant sans pousser le footer */
+  padding: 20px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Empêche cette zone de faire scroller toute la page */
+}
+
+/* Composant fictif de test */
+.placeholder-component {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  width: 100%;
+  max-width: 800px;
+  height: 100%; /* S'adapte parfaitement à la zone centrale */
+  max-height: 500px; /* Évite qu'il ne devienne trop grand sur des écrans géants */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px dashed #cbd5e1;
+}
+
+.placeholder-component.empty {
+  color: #94a3b8;
+}
+
+.selected-book-title {
+  font-size: 1.5rem;
+  color: #2E6F40;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* --- BARRE DE NAVIGATION EN BAS --- */
+.bottom-bar {
+  background-color: #ffffff;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #e2e8f0;
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.02);
+  width: 100%;
+}
+
+.navigation-container {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-arrow {
+  padding: 10px 20px;
+  background-color: #2E6F40;
+  color: #D5C58A;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(46, 111, 64, 0.2);
+}
+
+.nav-arrow:hover:not(:disabled) {
+  background-color: #1f4d2c;
+}
+
+.nav-arrow:disabled {
+  background-color: #cbd5e1;
+  color: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.nav-status {
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 500;
+}

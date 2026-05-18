@@ -25,13 +25,17 @@ export class UserService {
     return this.http.post<User>(this.baseUrl + '/register', user);
   }
 
-/** 
-   * Connexion et récupération automatique du cookie 
+/**
+   * Connexion et récupération automatique du cookie
    */
   login(userlogin: RequestLogin): Observable<string> {
     return this.http.post(`${this.baseUrl}/login`, userlogin, {
       withCredentials: true,
       responseType: 'text'
     });
+  }
+
+  getBooks(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseUrl}/book/all`);
   }
 }
