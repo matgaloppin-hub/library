@@ -1,24 +1,27 @@
 export class Book {
-  // 1. Déclaration des attributs (Propriétés)
-  public idLivre?: number;
+  public id?: number;
   public titre: string;
   public auteur: string;
   public edition: string;
-  public anneeParuation: string;
+  public anneeParution: string;
   public genre: string;
+  public disponible: boolean; 
 
   constructor(
     titre: string,
     auteur: string,
     edition: string,
-    anneeParuation: string,
+    anneeParution: string,
     genre: string,
-    idLivre?: number
+    id?: number,
+    disponible: boolean = true
   ) {
     this.titre = titre;
     this.auteur = auteur;
     this.edition = edition;
-    this.anneeParuation = anneeParuation;
+    this.anneeParution = anneeParution;
     this.genre = genre;
+    this.id = id;
+    this.disponible = disponible;
   }
 }

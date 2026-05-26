@@ -15,8 +15,10 @@
 
       @if (filteredBooks.length > 0) {
         <ul class="suggestions-list">
-          @for (book of filteredBooks; track book) {
-            <li (click)="selectBook(book)">{{ book }}</li>
+          @for (book of filteredBooks; track book.id) {
+            <li (click)="selectBook(book)">
+              {{ book.titre }} <span style="font-size: 0.8em; color: gray;">- {{ book.auteur }}</span>
+            </li>
           }
         </ul>
       }
@@ -24,32 +26,34 @@
   </header>
 
   <main class="content-area">
-    @if (searchQuery) {
-      <div class="placeholder-component">
-        <h3>Livre sélectionné :</h3>
-        <p class="selected-book-title">{{ searchQuery }}</p>
-      </div>
-    } @else {
+    <div class="book-grid">
+      @for (book of displayedBooks; track book.id) {
+        <app-book-card 
+          [book]="book" 
+          (reserveClick)="goToReservation($event)">
+        </app-book-card>
+      }
+    </div>
+
+    @if (displayedBooks.length === 0) {
       <div class="placeholder-component empty">
-        <h3>Zone d'affichage</h3>
-        <p>Sélectionnez un livre ou utilisez les flèches en bas pour naviguer.</p>
+        <h3>Aucun résultat</h3>
+        <p>Aucun livre ne correspond à votre recherche.</p>
       </div>
     }
   </main>
 
   <footer class="bottom-bar">
     <div class="navigation-container">
-      <button class="nav-arrow" (click)="navigateBook('prev')" [disabled]="allBooks.length === 0">
+      <button class="nav-arrow" (click)="navigatePage('prev')" [disabled]="!hasPrevPage()">
         🡨 Précédent
       </button>
 
-      @if (allBooks.length > 0 && searchQuery) {
-        <span class="nav-status">
-          Livre surligné
-        </span>
-      }
+      <span class="nav-status">
+        Page {{ currentPage + 1 }}
+      </span>
 
-      <button class="nav-arrow" (click)="navigateBook('next')" [disabled]="allBooks.length === 0">
+      <button class="nav-arrow" (click)="navigatePage('next')" [disabled]="!hasNextPage()">
         Suivant 🡪
       </button>
     </div>

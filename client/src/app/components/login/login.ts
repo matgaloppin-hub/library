@@ -42,7 +42,7 @@ export class Login implements OnInit {
     this.userService.login(user).subscribe({
       next: () => {
         this.notifService.show(true, 'Connexion réussie !');
-        setTimeout(() => this.router.navigate(['/home']), 1500);
+        this.router.navigate(['/home']) ;
       },
       error: (err) => {
         const message = err.status === 401

@@ -1,61 +1,39 @@
-/* Layout global prenant strictement tout l'écran sans scroll possible */
-.main-layout {
+.main-layout { 
+  padding: 40px 20px; 
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #faf9f6;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Fixe la hauteur exacte de la fenêtre */
-  width: 100vw;  /* Fixe la largeur exacte de la fenêtre */
-  background-color: #faf9f6; /* Ton fond beige clair signature */
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  box-sizing: border-box;
-  overflow: hidden; /* Empêche STRICTEMENT tout défilement global (haut/bas, gauche/droite) */
-  position: fixed;  /* Force le layout à rester ancré à l'écran */
-  top: 0;
-  left: 0;
 }
 
-/* Appliquer le border-box à tout le monde pour éviter que les paddings/borders n'agrandissent les éléments */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-/* --- BARRE DE RECHERCHE EN HAUT --- */
-.top-bar {
-  background-color: #ffffff;
-  padding: 15px 40px;
-  box-shadow: 0 4px 15px rgba(46, 111, 64, 0.05);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-  border-bottom: 3px solid #2E6F40; /* Rappel de ton vert signature */
-  width: 100%;
-}
+/* ===== HEADER / SEARCH ===== */
 
 .search-container {
   position: relative;
-  width: 100%;
   max-width: 600px;
+  margin: 0 auto 40px auto;
 }
 
 .input-group {
   position: relative;
-  display: flex;
-  align-items: center;
 }
 
-.search-input {
-  width: 100%;
-  padding: 12px 12px 12px 45px;
-  border: 1px solid #ddd;
-  border-radius: 30px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+.search-input { 
+  width: 100%; 
+  padding: 15px 45px 15px 20px; 
+  border-radius: 12px; 
+  border: 1px solid #ddd; 
+  font-size: 1rem; 
+  box-sizing: border-box;
+  outline: none;
   background-color: #fbfbfb;
+  transition: all 0.3s ease;
   color: #333;
+  box-shadow: 0 4px 12px rgba(46, 111, 64, 0.05);
 }
 
 .search-input:focus {
-  outline: none;
   border-color: #2E6F40;
   background-color: #fff;
   box-shadow: 0 0 0 3px rgba(213, 197, 138, 0.4);
@@ -63,93 +41,92 @@
 
 .search-icon {
   position: absolute;
-  left: 18px;
+  right: 15px;
   top: 50%;
   transform: translateY(-50%);
-  color: #666;
-  pointer-events: none;
+  color: #2E6F40;
+  font-size: 1.1rem;
 }
 
-/* Liste de suggestions */
+/* ===== SUGGESTIONS ===== */
+
 .suggestions-list {
   position: absolute;
   top: 100%;
-  left: 10px;
-  right: 10px;
-  background-color: #ffffff;
+  left: 0;
+  right: 0;
+  background: #ffffff;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-top: 5px;
-  padding: 0;
+  border-radius: 12px;
   list-style: none;
-  max-height: 220px;
-  overflow-y: auto; /* Seule cette liste a le droit de scroller si trop de résultats */
-  z-index: 99;
-  box-shadow: 0 10px 20px rgba(46, 111, 64, 0.1);
+  padding: 0;
+  margin-top: 8px;
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 10;
+  box-shadow: 0 10px 25px rgba(46, 111, 64, 0.1);
 }
 
 .suggestions-list li {
-  padding: 12px 20px;
+  padding: 14px 18px;
   cursor: pointer;
-  font-size: 0.95rem;
+  border-bottom: 1px solid #f1f1f1;
   color: #333;
-  transition: background-color 0.2s ease;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.suggestions-list li:last-child {
+  border-bottom: none;
 }
 
 .suggestions-list li:hover {
-  background-color: #faf9f6;
+  background-color: rgba(46, 111, 64, 0.05);
   color: #2E6F40;
-  font-weight: 600;
 }
 
-/* --- ZONE CENTRALE DYNAMIQUE --- */
+/* ===== CONTENT ===== */
+
 .content-area {
-  flex: 1; /* Prend dynamiquement tout l'espace restant sans pousser le footer */
-  padding: 20px 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden; /* Empêche cette zone de faire scroller toute la page */
+  flex-grow: 1;
 }
 
-/* Composant fictif de test */
-.placeholder-component {
-  background-color: #ffffff;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+/* ===== GRID ===== */
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
   width: 100%;
-  max-width: 800px;
-  height: 100%; /* S'adapte parfaitement à la zone centrale */
-  max-height: 500px; /* Évite qu'il ne devienne trop grand sur des écrans géants */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px dashed #cbd5e1;
+  box-sizing: border-box;
 }
+
+/* ===== EMPTY STATE ===== */
 
 .placeholder-component.empty {
-  color: #94a3b8;
-}
-
-.selected-book-title {
-  font-size: 1.5rem;
+  text-align: center;
   color: #2E6F40;
-  font-weight: bold;
-  margin-top: 10px;
+  padding: 60px 20px;
 }
 
-/* --- BARRE DE NAVIGATION EN BAS --- */
+.placeholder-component.empty h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.placeholder-component.empty p {
+  color: #666;
+}
+
+/* ===== FOOTER ===== */
+
 .bottom-bar {
-  background-color: #ffffff;
-  padding: 15px 40px;
+  margin-top: 50px;
+  padding: 20px 0;
   display: flex;
   justify-content: center;
-  align-items: center;
-  border-top: 1px solid #e2e8f0;
-  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.02);
-  width: 100%;
 }
 
 .navigation-container {
@@ -158,32 +135,63 @@
   gap: 30px;
 }
 
+/* ===== BUTTONS ===== */
+
 .nav-arrow {
-  padding: 10px 20px;
   background-color: #2E6F40;
   color: #D5C58A;
   border: none;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: bold;
+  padding: 14px 24px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 5px rgba(46, 111, 64, 0.2);
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  box-shadow: 0 4px 12px rgba(46, 111, 64, 0.15);
 }
 
 .nav-arrow:hover:not(:disabled) {
   background-color: #1f4d2c;
 }
 
+.nav-arrow:active:not(:disabled) {
+  transform: translateY(2px);
+}
+
 .nav-arrow:disabled {
-  background-color: #cbd5e1;
-  color: #94a3b8;
+  background-color: #a3c2ac;
+  color: #f0f0f0;
   cursor: not-allowed;
   box-shadow: none;
 }
 
+/* ===== PAGE NUMBER ===== */
+
 .nav-status {
-  font-size: 0.9rem;
-  color: #64748b;
-  font-weight: 500;
+  font-weight: 600;
+  color: #2E6F40;
+  font-size: 1.1rem;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 900px) {
+  .book-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .book-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .navigation-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .nav-arrow {
+    width: 100%;
+  }
 }

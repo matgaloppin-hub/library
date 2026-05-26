@@ -32,7 +32,7 @@ public class UserController {
 
         // Création du cookie
         Cookie cookie = new Cookie("token", token);
-        cookie.setHttpOnly(true);
+        cookie.setHttpOnly(false);
         cookie.setSecure(false); // Mettre à 'true' en production (HTTPS)
         cookie.setPath("/");
         cookie.setMaxAge(60 * 60);
