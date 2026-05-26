@@ -1,7 +1,15 @@
 package fr.library.server.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,4 +34,12 @@ public class User {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
+    @Enumerated(EnumType.STRING) //stocke "USER"/"ADMIN" en BDD
+    //@Column(nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'USER'")
+    private Role role = Role.USER;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private Boolean accepted = false;
 }
