@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -81,5 +82,11 @@ public class UserController {
         response.addCookie(cookie);
 
         return ResponseEntity.ok(new LoginResponse("Connexion réussie", loginResponse.getRole()));
+    }
+
+    @PutMapping("/{id}/accept")
+    public ResponseEntity<Void> acceptUser(@PathVariable Long id) {
+        userService.acceptUser(id);
+        return ResponseEntity.noContent().build(); // 204
     }
 }

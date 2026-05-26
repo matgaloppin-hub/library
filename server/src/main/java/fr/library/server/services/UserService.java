@@ -22,8 +22,12 @@ public class UserService {
     private final JWTUtils jwtUtils;
 
     public User createUser(User user) {
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new RuntimeException("Email déjà utilisé");
+        }
         user.setRole(Role.USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setAccepted(false);
         return userRepository.save(user);
     }
 
@@ -48,6 +52,10 @@ public class UserService {
         if (!passwordEncoder.matches(password, user.getPassword()))
             throw new RuntimeException("Mot de passe incorrect");
 
+        if (!Boolean.TRUE.equals(user.getAccepted())) {
+            throw new RuntimeException("Compte en attente de validation par un administrateur");
+        }
+
         String token = jwtUtils.generateToken(user);
         return new LoginResponse(token, user.getRole().name());
     }
@@ -70,5 +78,12 @@ public class UserService {
         if (!userRepository.existsById(id))
             throw new RuntimeException("Utilisateur introuvable");
         userRepository.deleteById(id);
+    }
+
+    public void acceptUser(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+        user.setAccepted(true);
+        userRepository.save(user);
     }
 }

@@ -38,4 +38,8 @@ public class User {
     @Enumerated(EnumType.STRING) //stocke "USER"/"ADMIN" en BDD
     //@Column(nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'USER'")
     private Role role = Role.USER;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private Boolean accepted = false;
 }
